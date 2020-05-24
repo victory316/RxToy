@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".view.MainActivity">
 
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:columnCount="3"
-        android:rowCount="3"
+        android:orientation="vertical"
+        android:rowCount="4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -18,8 +19,31 @@
 
         <Button
             android:id="@+id/piano_button"
-            android:text="Rx Piano" />
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="Rx Piano"
+            android:theme="@style/Widget.MaterialComponents.Button"/>
+
+        <Button
+            android:id="@+id/rx_view_button"
+            android:layout_width="150dp"
+            android:padding="20dp"
+            android:text="Rx View"
+            android:theme="@style/Widget.MaterialComponents.Button" />
 
     </GridLayout>
+
+
+    <TextView
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:text="Seongwhan choi"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+
+        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.example.rxtoy
+package com.example.rxtoy.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

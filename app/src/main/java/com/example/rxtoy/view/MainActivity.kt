@@ -1,4 +1,4 @@
-package com.example.rxtoy
+package com.example.rxtoy.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +16,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.pianoButton.setOnClickListener {
             startActivity(Intent(this, PianoActivity::class.java))
+        }
+        
+        binding.rxViewButton.setOnClickListener {
+            startActivity(Intent(this, RxViewActivity::class.java))
         }
     }
 }
