@@ -4,13 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.rxtoy.databinding.ActivityPianoBinding
-import io.reactivex.Flowable
-import io.reactivex.Observable
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.subjects.PublishSubject
-import java.util.*
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
-import kotlin.concurrent.thread
 
 class PianoActivity : AppCompatActivity() {
 
@@ -37,14 +35,18 @@ class PianoActivity : AppCompatActivity() {
     }
 
     private fun addNewFlow() {
-        compositeDisposable.clear()
-
         Toast.makeText(this, "Adding new flow", Toast.LENGTH_SHORT).show()
 
         val latestText = binding.inputText.text.toString()
 
+        publishSubject.onNext(latestText)
+    }
+
+    private fun setupTestObservable() {
         compositeDisposable.add(publishSubject
             .delay(1000, TimeUnit.MILLISECONDS)
+            .observeOn(Schedulers.newThread())
+            .subscribeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 val currentText = binding.bottomTextView.text
                 val stringBuffer = StringBuffer()
@@ -52,15 +54,8 @@ class PianoActivity : AppCompatActivity() {
                 stringBuffer.append(it)
 
                 binding.bottomTextView.text = stringBuffer.toString()
-                publishSubject.onNext(latestText)
+//                publishSubject.onNext(latestText)
             })
-
-
-        publishSubject.onNext(latestText)
-    }
-
-    private fun setupTestObservable() {
-
     }
 
     override fun onDestroy() {
