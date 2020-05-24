@@ -34,27 +34,38 @@ class PianoActivity : AppCompatActivity() {
         binding.addButton.setOnClickListener {
             addNewFlow()
         }
+    }
+
+    private fun addNewFlow() {
+        compositeDisposable.clear()
+
+        Toast.makeText(this, "Adding new flow", Toast.LENGTH_SHORT).show()
+
+        val latestText = binding.inputText.text.toString()
 
         compositeDisposable.add(publishSubject
             .delay(1000, TimeUnit.MILLISECONDS)
             .subscribe {
-            val currentText = binding.bottomTextView.text
-            val stringBuffer = StringBuffer()
-            stringBuffer.append(currentText)
-            stringBuffer.append(it)
+                val currentText = binding.bottomTextView.text
+                val stringBuffer = StringBuffer()
+                stringBuffer.append(currentText)
+                stringBuffer.append(it)
 
-            binding.bottomTextView.text = stringBuffer.toString()
-                publishSubject.onNext("A ")
-        })
-    }
+                binding.bottomTextView.text = stringBuffer.toString()
+                publishSubject.onNext(latestText)
+            })
 
-    private fun addNewFlow() {
-        Toast.makeText(this, "Adding new flow", Toast.LENGTH_SHORT).show()
 
-        publishSubject.onNext("A ")
+        publishSubject.onNext(latestText)
     }
 
     private fun setupTestObservable() {
 
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.clear()
+
+        super.onDestroy()
     }
 }
